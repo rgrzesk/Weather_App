@@ -11,7 +11,7 @@
     </base-block >
 
 <transition name="mainanimation">
-    <base-block v-if=" typeof weather.main != 'undefined' " class="mainbl">
+    <base-block v-if=" typeof weather.main != 'undefined'" class="mainbl">
     <section> 
         <div class = "location">{{weather.name}},{{weather.sys.country}}</div>
         <div>
@@ -19,8 +19,11 @@
             {{ Math.round(weather.main.temp) }}
             </h1>
         </div>
-        <div src></div>
+        <div>
+        <img v-bind:src='setIcon(weather)'  />
+        </div>
         <div>{{ weather.weather[0].description }} </div>
+        
 </section>
 </base-block>
 </transition>
@@ -37,6 +40,8 @@ export default{
         url_base:'https://api.openweathermap.org/data/2.5/',
         apiKey:'693e2fc6b5ee1eb27f70d56242253ea2',
         inputcity:'',
+        image:'',
+        img:'',
         };
     },
     methods:{
@@ -49,7 +54,11 @@ export default{
         },
         setResults(results){
             this.weather=results;
-        }
+        },
+        setIcon(weather){
+            this.image='../icons/'+ weather.weather[0].icon +'.png';
+            return this.image;
+        },
     },
 
 };
