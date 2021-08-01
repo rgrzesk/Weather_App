@@ -1,3 +1,5 @@
+
+
 <template>
   <div>
   
@@ -30,8 +32,7 @@
               {{ Math.round(weather.main.temp) }} &deg;C
             </h1>
           </div>
-          <img v-bind:src="icons[image]"/>
-          <a></a>
+          <img v-bind:src="image"/>
           <div>{{ weather.weather[0].description }}</div>
         </section>
       </base-block>
@@ -48,24 +49,10 @@ export default {
       apiKey: '693e2fc6b5ee1eb27f70d56242253ea2',
 
       inputCity: '',
-      image: '../icons/01d.png',
+      image: '',
       error:null,
       loading:false,
       isErr:false,
-      icons:{
-        i01d:'url(${require(@/icons/01d.png)})',
-        i01n:'url(${require(@/icons/01d.png)})',
-        i02d:'url(${require(@/icons/01d.png)})',
-        i02n:'url(${require(@/icons/01d.png)})',
-        i03d:'url(${require(@/icons/01d.png)})',
-        i03n:'url(${require(@/icons/01d.png)})',
-        i04d:'url(${require(@/icons/01d.png)})',
-        i04n:'url(${require(@/icons/01d.png)})',
-        i09d:'url(${require(@/icons/09d.png)})',
-        i09n:'url(${require(@/icons/09n.png)})',
-        i10d:'url(${require(@/icons/10d.png)})',
-
-      }
     };
   },
     methods: {
@@ -97,8 +84,9 @@ export default {
     },
     setResults(results) {
       this.weather = results;
-      this.image=`i${this.weather.weather[0].icon}`;
+      this.image = `http://openweathermap.org/img/wn/${this.weather.weather[0].icon}@4x.png`
       console.log(this.image);
+      
     },
     
     closeError(){
@@ -107,6 +95,7 @@ export default {
     }
   },
 };
+
 </script>
 
 <style scoped>
@@ -114,19 +103,15 @@ h1 {
   font-size: 50px;
   font-weight: 300;
 }
-
-.icon{
-   width: 100px;
-  height: 100px;
-  background-size: cover;
-
+img{
+  margin:0px;
 }
 
 .topbl {
   background-color: lightblue;
 }
 .mainbl {
-  min-height: 30rem;
+  min-height: 20rem;
   background-color: lightblue;
 }
 
